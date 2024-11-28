@@ -1,0 +1,30 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Frontend Lint Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: kagami/webui
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: 22.11.0
+
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Install
+        run: npm install
+
+      - name: Lint Check
+        run: npx xo
